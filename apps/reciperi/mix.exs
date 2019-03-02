@@ -12,7 +12,6 @@ defmodule Reciperi.MixProject do
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -39,20 +38,6 @@ defmodule Reciperi.MixProject do
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.0"}
-    ]
-  end
-
-  # Aliases are shortcuts or tasks specific to the current project.
-  # For example, to create, migrate and run the seeds file at once:
-  #
-  #     $ mix ecto.setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
-    [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
