@@ -20,6 +20,7 @@ defmodule ReciperiWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: ReciperiWeb
+
       import Plug.Conn
       import ReciperiWeb.Gettext
       alias ReciperiWeb.Router.Helpers, as: Routes

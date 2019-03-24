@@ -1,4 +1,3 @@
-# Reciperi.Umbrella
 ## Console
 This way iex load project dependencies
 ```

@@ -1,4 +1,4 @@
-defmodule ReciperiWeb.Application do
+defmodule Reciperi.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,16 +8,14 @@ defmodule ReciperiWeb.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the endpoint when the application starts
+      Reciperi.Repo,
       ReciperiWeb.Endpoint
-      # Starts a worker by calling: ReciperiWeb.Worker.start_link(arg)
-      # {ReciperiWeb.Worker, arg},
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: ReciperiWeb.Supervisor]
-    Supervisor.start_link(children, opts)
+    Supervisor.start_link(
+      children,
+      strategy: :one_for_one, name: Reciperi.Supervisor
+    )
   end
 
   # Tell Phoenix to update the endpoint configuration

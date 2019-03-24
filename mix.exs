@@ -1,29 +1,49 @@
-defmodule Reciperi.Umbrella.MixProject do
+defmodule Reciperi.MixProject do
   use Mix.Project
 
   def project do
     [
-      apps_path: "apps",
+      app: :reciperi,
+      version: "0.1.0",
+      elixir: "~> 1.5",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      deps: deps()
     ]
   end
 
-  # Dependencies can be Hex packages:
+  # Configuration for the OTP application.
   #
-  #   {:mydep, "~> 0.3.0"}
+  # Type `mix help compile.app` for more information.
+  def application do
+    [
+      mod: {Reciperi.Application, []},
+      extra_applications: [:logger, :runtime_tools]
+    ]
+  end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  # Specifies your project dependencies.
   #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options.
-  #
-  # Dependencies listed here are available only for this project
-  # and cannot be accessed from applications inside the apps folder
+  # Type `mix help deps` for examples and options.
   defp deps do
-    []
+    [
+      {:phoenix, "~> 1.4.2"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_sql, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:gettext, "~> 0.11"},
+      {:jason, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:absinthe, "1.4.16"},
+      {:absinthe_plug, "~> 1.4"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
