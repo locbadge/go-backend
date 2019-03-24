@@ -20,7 +20,7 @@ defmodule Reciperi.MixProject do
   def application do
     [
       mod: {Reciperi.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ex_machina]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 

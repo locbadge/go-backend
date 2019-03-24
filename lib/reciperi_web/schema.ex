@@ -1,13 +1,13 @@
 defmodule ReciperiWeb.Schema do
   use Absinthe.Schema
-  import_types ReciperiWeb.Schema.Ingredients
+  import_types ReciperiWeb.Schema.Objects
 
-  alias ReciperiWeb.Resolvers
+  alias Reciperi.Resolvers
 
   query do
     @desc "Get all ingredients"
     field :ingredients, list_of(:ingredient) do
-      resolve &Resolvers.Ingredient.list_ingredients/3
+      resolve &Resolvers.ingredients/3
     end
   end
 end

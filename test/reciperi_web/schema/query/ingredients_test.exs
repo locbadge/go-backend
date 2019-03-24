@@ -1,6 +1,10 @@
 defmodule ReciperiWeb.Schema.Query.MenuItemsTest do
   use ReciperiWeb.ConnCase
 
+  def setup do
+    [conn: build_conn()]
+  end
+
   @query """
   {
     ingredients {
@@ -8,17 +12,31 @@ defmodule ReciperiWeb.Schema.Query.MenuItemsTest do
     }
   }
   """
-  test "ingredients field returns ingredient items" do
+  test "ingredients field returns ingredient items", context do
     insert(:ingredient)
-    conn = build_conn()
-    conn = get conn, "/graphql", query: @query
-    assert json_response(conn, 200) == %{
+    request = get context[:conn], "/graphql", query: @query
+    assert json_response(request, 200) == %{
       "data" => %{
         "ingredients" => [
-          %{"name" => "Pepper"},
+          %{"name" => "Pepper"}
         ]
       }
     }
   end
 
+  # @query """
+  # {
+  #   ingredients(matching: "foo"){
+  #     name
+  #   }
+  # }
+  # """
+  # test "ingredients field returns ingredient items" do
+  #   conn = get conn, "/graphql", query: @query
+  #   assert json_response(conn, 200) == %{
+  #     "data" => %{
+  #       "ingredients" => []
+  #     }
+  #   }
+  # end
 end

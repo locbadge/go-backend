@@ -3,7 +3,7 @@ defmodule Reciperi.IngredientFactory do
     quote do
       def ingredient_factory do
         now = DateTime.utc_now()
-        %Reciperi.Ingredient{
+        %Reciperi.Schemas.Ingredient{
           name: "Pepper",
           inserted_at: now,
           updated_at: now
