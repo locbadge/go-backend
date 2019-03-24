@@ -23,6 +23,8 @@ defmodule ReciperiWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint ReciperiWeb.Endpoint
+
+      import Reciperi.Factory
     end
   end
 

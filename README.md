@@ -21,5 +21,12 @@ Rollback (n is the versions to rollback) AKA `bin/rails db:migrate:down`
 mix db.down -n 1 -r Reciperi.Repo
 ```
 
+## Connect to PostgreSQL in console
+Copy DB_PASSWORD from .env file, `psql` command will ask for it>
+```
+ cat .env
+psql -U development -W --dbname reciperi_dev --host localhost
+```
+
 ## TODO
 - [ ] Investigate why is necessary to `source .env` before running console

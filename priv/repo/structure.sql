@@ -39,8 +39,8 @@ SET default_with_oids = false;
 CREATE TABLE public.reciperi_ingredients (
     id bigint NOT NULL,
     name character varying(40),
-    inserted_at timestamp(0) without time zone NOT NULL,
-    updated_at timestamp(0) without time zone NOT NULL
+    inserted_at timestamp(0) without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp(0) without time zone DEFAULT now() NOT NULL
 );
 
 

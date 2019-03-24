@@ -6,7 +6,7 @@ defmodule ReciperiWeb.Schema do
 
   query do
     @desc "Get all ingredients"
-    field :ingredient, list_of(:ingredient) do
+    field :ingredients, list_of(:ingredient) do
       resolve &Resolvers.Ingredient.list_ingredients/3
     end
   end
