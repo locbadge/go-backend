@@ -14,8 +14,8 @@ defmodule ReciperiWeb.Schema.Query.MenuItemsTest do
   """
   test "ingredients field returns ingredient items", context do
     insert(:ingredient)
-    request = get context[:conn], "/graphql", query: @query
-    assert json_response(request, 200) == %{
+    response = get(context[:conn], "/graphql", query: @query)
+    assert json_response(response, 200) == %{
       "data" => %{
         "ingredients" => [
           %{"name" => "Pepper"}
@@ -24,19 +24,40 @@ defmodule ReciperiWeb.Schema.Query.MenuItemsTest do
     }
   end
 
-  # @query """
-  # {
-  #   ingredients(matching: "foo"){
-  #     name
-  #   }
-  # }
-  # """
-  # test "ingredients field returns ingredient items" do
-  #   conn = get conn, "/graphql", query: @query
-  #   assert json_response(conn, 200) == %{
-  #     "data" => %{
-  #       "ingredients" => []
-  #     }
-  #   }
-  # end
+  @query """
+  {
+    ingredients(
+      filter: {
+        name: "Foo"
+      }
+    ) {
+      name
+    }
+  }
+  """
+  test "ingredients filtered by name foo", context do
+    insert(:ingredient)
+    response = get(context[:conn], "/graphql", query: @query)
+    assert json_response(response, 200) == %{
+      "data" => %{
+        "ingredients" => []
+      }
+    }
+  end
+
+  @query """
+  {
+    ingredients(filter: { name: 123 }) {
+      name
+    }
+  }
+  """
+  test "Wrong filter type", context do
+    insert(:ingredient)
+    response = get(context[:conn], "/graphql", query: @query)
+    assert %{"errors" => [
+      %{"message" => message}
+    ]} = json_response(response, 200)
+    assert message == "Argument \"filter\" has invalid value {name: 123}.\nIn field \"name\": Expected type \"String\", found 123."
+  end
 end

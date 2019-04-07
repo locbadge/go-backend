@@ -1,6 +1,8 @@
 defmodule ReciperiWeb.Schema.Objects do
   use Absinthe.Schema.Notation
 
+  import_types ReciperiWeb.Schema.InputObjects
+
   @desc "Igredient definition"
   object :ingredient do
     field :id, :id

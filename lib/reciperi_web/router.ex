@@ -7,6 +7,7 @@ defmodule ReciperiWeb.Router do
     json_codec: Jason,
     schema: ReciperiWeb.Schema
   )
+
   forward(
     "/graphiql",
     Absinthe.Plug.GraphiQL,

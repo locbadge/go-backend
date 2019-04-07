@@ -1,3 +1,18 @@
+### TODO
+- [ ] Book page: 35, Implement a filter. Check spec
+
+### Debug
+To setup a debugger do this in the code you want to debug:
+```
+require IEx; IEx.pry
+```
+
+Debug has to happen on an interactive session `IEX`.To run
+a test with a file that has a debugger do this:
+```
+iex -S mix test
+```
+
 ## Console
 This way iex load project dependencies
 ```

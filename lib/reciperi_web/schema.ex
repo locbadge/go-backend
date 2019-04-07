@@ -5,8 +5,11 @@ defmodule ReciperiWeb.Schema do
   alias Reciperi.Resolvers
 
   query do
-    @desc "Get all ingredients"
+    @desc "A list of ingredients ."
     field :ingredients, list_of(:ingredient) do
+      @desc "Filtering criteria for ingredients."
+      arg :filter, :ingredient_filters
+
       resolve &Resolvers.ingredients/3
     end
   end
