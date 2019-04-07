@@ -23,10 +23,11 @@ defmodule Reciperi.Resolvers.IngredientConnection do
     Ingredients.Query.where_filter(base_query, filter)
   end
 
+  defp filter_with(base_query, _), do: base_query
+
   defp order(base_query, %{order: order}) do
     Ingredients.Query.order_by(base_query, order)
   end
 
   defp order(base_query, _), do: base_query
-  defp filter_with(base_query, _), do: base_query
 end

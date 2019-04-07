@@ -14,9 +14,10 @@ defmodule ReciperiWeb.Schema.InputObjects do
 
   @desc "Filtering criteria for post connections."
   input_object :ingredient_filter do
-    @desc """
-    Filter by author handle.
-    """
     field :name, :string
+    @desc "Filter by created before"
+    field :created_at_before, :time
+    @desc "Filter by created after"
+    field :created_at_after, :time
   end
 end

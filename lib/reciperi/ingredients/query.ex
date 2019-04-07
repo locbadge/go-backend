@@ -18,6 +18,10 @@ defmodule Reciperi.Ingredients.Query do
     Enum.reduce(filter, query, fn
       {:name, name}, query ->
         from q in query, where: ilike(q.name, ^"%#{name}%")
+      {:created_at_before, time}, query ->
+        from q in query, where: q.inserted_at <= ^time
+      {:created_at_after, time}, query ->
+        from q in query, where: q.inserted_at >= ^time
     end)
   end
 

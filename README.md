@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 35, Implement a filter. Check spec
+- [ ] Book page: 50
 
 ### Debug
 To setup a debugger do this in the code you want to debug:
