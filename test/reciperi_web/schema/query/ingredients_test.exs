@@ -25,13 +25,13 @@ defmodule ReciperiWeb.Schema.Query.IngredientsTest do
   end
 
   @query """
-  query ($name: String) {
-    ingredients(filter: {name: $name}) {
+  query ($filter: IngredientFilter) {
+    ingredients(filter: $filter) {
       name
     }
   }
   """
-  @variables %{"name" => "Foo"}
+  @variables %{filter: %{"name" => "Foo"}}
   test "ingredients filtered by name foo", context do
     insert(:ingredient)
     response = post(context[:conn], "/graphql", query: @query, variables: @variables)

@@ -13,7 +13,7 @@ defmodule ReciperiWeb.Schema.InputObjects do
   end
 
   @desc "Filtering criteria for post connections."
-  input_object :ingredient_filters do
+  input_object :ingredient_filter do
     @desc """
     Filter by author handle.
     """
