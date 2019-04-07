@@ -14,8 +14,14 @@ defmodule Reciperi.Ingredients.Query do
     from ingredient in Ingredient
   end
 
-  def where_name(query, name) do
-    from ig in query,
-      where: ilike(ig.name, ^"%#{name}%")
+  def where_filter(query, filter) do
+    Enum.reduce(filter, query, fn
+      {:name, name}, query ->
+        from q in query, where: ilike(q.name, ^"%#{name}%")
+    end)
+  end
+
+  def order_by(query, %{direction: direction, field: field}) do
+    from ig in query, order_by: {^direction, ^field}
   end
 end

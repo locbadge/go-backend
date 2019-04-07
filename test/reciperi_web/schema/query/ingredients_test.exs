@@ -1,4 +1,4 @@
-defmodule ReciperiWeb.Schema.Query.MenuItemsTest do
+defmodule ReciperiWeb.Schema.Query.IngredientsTest do
   use ReciperiWeb.ConnCase
 
   def setup do
@@ -13,7 +13,7 @@ defmodule ReciperiWeb.Schema.Query.MenuItemsTest do
   }
   """
   test "ingredients field returns ingredient items", context do
-    insert(:ingredient)
+    insert(:ingredient, name: "Pepper")
     response = get(context[:conn], "/graphql", query: @query)
     assert json_response(response, 200) == %{
       "data" => %{
@@ -25,22 +25,41 @@ defmodule ReciperiWeb.Schema.Query.MenuItemsTest do
   end
 
   @query """
-  {
-    ingredients(
-      filter: {
-        name: "Foo"
-      }
-    ) {
+  query ($name: String) {
+    ingredients(filter: {name: $name}) {
       name
     }
   }
   """
+  @variables %{"name" => "Foo"}
   test "ingredients filtered by name foo", context do
     insert(:ingredient)
-    response = get(context[:conn], "/graphql", query: @query)
+    response = post(context[:conn], "/graphql", query: @query, variables: @variables)
     assert json_response(response, 200) == %{
       "data" => %{
         "ingredients" => []
+      }
+    }
+  end
+
+  @query """
+  query ($order: OrderDirection) {
+    ingredients(order: {direction: $order}) {
+      name
+    }
+  }
+  """
+  @variables %{"order" => "DESC"}
+  test "Ordered ingredients", context do
+    insert(:ingredient, name: "Apple")
+    insert(:ingredient)
+    response = post(context[:conn], "/graphql", query: @query, variables: @variables)
+    assert json_response(response, 200) == %{
+      "data" => %{
+        "ingredients" => [
+          %{"name" => "Pepper"},
+          %{"name" => "Apple"}
+        ]
       }
     }
   end

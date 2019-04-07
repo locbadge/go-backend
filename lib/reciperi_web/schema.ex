@@ -9,6 +9,7 @@ defmodule ReciperiWeb.Schema do
     field :ingredients, list_of(:ingredient) do
       @desc "Filtering criteria for ingredients."
       arg :filter, :ingredient_filters
+      arg :order, :ingredient_order
 
       resolve &Resolvers.ingredients/3
     end
