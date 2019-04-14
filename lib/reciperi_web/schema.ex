@@ -23,4 +23,10 @@ defmodule ReciperiWeb.Schema do
       resolve &Resolvers.search/3
     end
   end
+
+  mutation do
+    field :create_ingredient, :ingredient do
+      arg :input, non_null(:ingredient_input)
+    end
+  end
 end

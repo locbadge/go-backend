@@ -17,7 +17,12 @@ defmodule Reciperi.Resolvers.SearchConnection do
   defp search_query(model, pattern) when model == Recipe do
     from(
       q in model,
-      where: ilike(q.name, ^pattern) or ilike(q.description, ^pattern)
+      join: items in assoc(q, :ingredients),
+      join: ing in assoc(items, :ingredient),
+      where: ilike(
+        q.name, ^pattern) or
+          ilike(q.description, ^pattern) or
+          ilike(ing.name, ^pattern)
     )
   end
 

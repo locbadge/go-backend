@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 72 tests and apply interfaces to search
+- [ ] Book page: 80 mutations, build `create` resolver
 
 ### Debug
 To setup a debugger do this in the code you want to debug:
@@ -43,5 +43,5 @@ Copy DB_PASSWORD from .env file, `psql` command will ask for it>
 psql -U development -W --dbname reciperi_dev --host localhost
 ```
 
-## TODO
+## Technical deb
 - [ ] Investigate why is necessary to `source .env` before running console

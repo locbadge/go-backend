@@ -20,4 +20,9 @@ defmodule ReciperiWeb.Schema.InputObjects do
     @desc "Filter by created after"
     field :created_at_after, :time
   end
+
+  @desc "Ingredient's accepted fields on mutation"
+  input_object :ingredient_input do
+    field :name, non_null(:string)
+  end
 end

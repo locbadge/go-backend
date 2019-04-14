@@ -23,10 +23,12 @@ defmodule ReciperiWeb.Schema.Query.SearchTest do
     }
   }
   """
-  @variables %{term: "e"}
+  @variables %{term: "pepp"}
   test "Search ingredients and recipes with their ingredients", context do
-    insert(:ingredient, name: "Pepper")
-    insert(:recipe, name: "Paella")
+    ingredient = insert(:ingredient, name: "Pepper")
+    recipe = insert(:recipe, name: "Paella")
+    insert(:recipe_item, recipe_id: recipe.id, ingredient_id: ingredient.id)
+
     response = post(
       context[:conn], "/graphql", query: @query, variables: @variables
     )
