@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 50
+- [ ] Book page: 72 tests and apply interfaces to search
 
 ### Debug
 To setup a debugger do this in the code you want to debug:

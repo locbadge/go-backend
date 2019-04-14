@@ -3,7 +3,7 @@ defmodule Core.Repo.Migrations.AddIngredientTable do
 
   def change do
     create table("reciperi_ingredients") do
-      add :name,    :string, size: 40
+      add :name, :string, size: 40
 
       timestamps(type: :utc_datetime, default: fragment("NOW()"))
     end
