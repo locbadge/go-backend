@@ -1,5 +1,6 @@
 defmodule ReciperiWeb.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket, schema: ReciperiWeb.Schema
 
   ## Channels
   # channel "room:*", ReciperiWeb.RoomChannel

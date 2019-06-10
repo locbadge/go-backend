@@ -13,6 +13,7 @@ defmodule ReciperiWeb.Router do
     Absinthe.Plug.GraphiQL,
     json_codec: Jason,
     schema: ReciperiWeb.Schema,
-    interface: :simple
+    interface: :simple,
+    socket: ReciperiWeb.UserSocket
   )
 end

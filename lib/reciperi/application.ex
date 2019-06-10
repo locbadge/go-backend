@@ -6,10 +6,12 @@ defmodule Reciperi.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
     # List all child processes to be supervised
     children = [
-      Reciperi.Repo,
-      ReciperiWeb.Endpoint
+      supervisor(Reciperi.Repo, []),
+      supervisor(ReciperiWeb.Endpoint, []),
+      supervisor(Absinthe.Subscription, [ReciperiWeb.Endpoint])
     ]
 
     Supervisor.start_link(

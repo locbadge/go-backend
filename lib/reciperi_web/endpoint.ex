@@ -1,5 +1,6 @@
 defmodule ReciperiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :reciperi
+  use Absinthe.Phoenix.Endpoint
 
   socket "/socket", ReciperiWeb.UserSocket,
     websocket: true,
