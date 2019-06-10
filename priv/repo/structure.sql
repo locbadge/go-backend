@@ -34,6 +34,40 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: orders; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders (
+    id bigint NOT NULL,
+    customer_number integer,
+    ingredients jsonb,
+    ordered_at timestamp(0) without time zone,
+    state character varying(255),
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
+);
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
 -- Name: reciperi_ingredients; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -144,6 +178,13 @@ CREATE TABLE public.schema_migrations (
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.reciperi_ingredients ALTER COLUMN id SET DEFAULT nextval('public.reciperi_ingredients_id_seq'::regclass);
 
 
@@ -159,6 +200,14 @@ ALTER TABLE ONLY public.reciperi_recipe_items ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY public.reciperi_recipes ALTER COLUMN id SET DEFAULT nextval('public.reciperi_recipes_id_seq'::regclass);
+
+
+--
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
 
 
 --
@@ -241,5 +290,5 @@ ALTER TABLE ONLY public.reciperi_recipe_items
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805);
+INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805), (20190610153039);
 

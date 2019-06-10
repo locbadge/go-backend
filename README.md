@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 98 subscriptions
+- [ ] Book page: 104 subscriptions/ Building ordering API
 
 ### Debug
 To setup a debugger do this in the code you want to debug:

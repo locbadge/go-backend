@@ -4,7 +4,24 @@ defmodule Reciperi.Ingredients.Query do
   """
 
   import Ecto.Query
+  alias Reciperi.Repo
   alias Reciperi.Schemas.Ingredient
+
+  @doc """
+  Gets a single item.
+
+  Raises `Ecto.NoResultsError` if the Item does not exist.
+
+  ## Examples
+
+      iex> get_item!(123)
+      %Item{}
+
+      iex> get_item!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_item!(id), do: Repo.get!(Ingredient, id)
 
   @doc """
   Builds a query for ingredients
