@@ -24,5 +24,7 @@ defmodule ReciperiWeb.Schema.InputObjects do
   @desc "Ingredient's accepted fields on mutation"
   input_object :ingredient_input do
     field :name, non_null(:string)
+    field :description, :string
+    field :price, non_null(:decimal)
   end
 end

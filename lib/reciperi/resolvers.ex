@@ -15,6 +15,10 @@ defmodule Reciperi.Resolvers do
     IngredientConnection.get(parent, args, info)
   end
 
+  def create_ingredient(parent, args, info) do
+    IngredientConnection.create(parent, args, info)
+  end
+
   def recipes(parent, args, info) do
     RecipeConnection.get(parent, args, info)
   end

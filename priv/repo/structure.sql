@@ -201,6 +201,13 @@ CREATE UNIQUE INDEX recipe_id_ingredient_id_unique_index ON public.reciperi_reci
 
 
 --
+-- Name: reciperi_ingredients_name_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX reciperi_ingredients_name_index ON public.reciperi_ingredients USING btree (name);
+
+
+--
 -- Name: reciperi_recipe_items_ingredient_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -234,5 +241,5 @@ ALTER TABLE ONLY public.reciperi_recipe_items
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919);
+INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805);
 

@@ -7,11 +7,24 @@ defmodule ReciperiWeb.Schema.Objects do
   import_types ReciperiWeb.Schema.InputObjects
   import_types ReciperiWeb.Schema.Fragments
 
+  @desc "An error encountered trying to persist input"
+  object :input_error do
+    field :key, non_null(:string)
+    field :message, non_null(:string)
+  end
+
   @desc "Igredient definition"
   object :ingredient do
     interfaces [:search_result]
     field :id, :id
     field :name, :string
+    field :description, :string
+    field :price, :decimal
+  end
+
+  object :ingredient_result do
+    field :ingredient, :ingredient
+    field :errors, list_of(:input_error)
   end
 
   @desc "These are the relation between a recipe and an ingredient"
