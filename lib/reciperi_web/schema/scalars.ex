@@ -19,6 +19,14 @@ defmodule ReciperiWeb.Schema.Scalars do
     serialize(&Timex.format!(&1, "{ISO:Extended:Z}"))
   end
 
+  scalar :decimal do parse fn
+    %{value: value}, _ -> Decimal.parse(value)
+    _, _ ->
+      :error
+  end
+    serialize &to_string/1
+  end
+
   @desc """
   This scalar type represents time values as a Unix timestamp (in milliseconds).
   """

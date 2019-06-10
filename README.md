@@ -43,5 +43,5 @@ Copy DB_PASSWORD from .env file, `psql` command will ask for it>
 psql -U development -W --dbname reciperi_dev --host localhost
 ```
 
-## Technical deb
+## TODO
 - [ ] Investigate why is necessary to `source .env` before running console
