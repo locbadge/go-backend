@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 80 mutations, build `create` resolver
+- [ ] Book page: 98 subscriptions
 
 ### Debug
 To setup a debugger do this in the code you want to debug:
