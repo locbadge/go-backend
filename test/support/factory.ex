@@ -3,4 +3,5 @@ defmodule Reciperi.Factory do
   use Reciperi.IngredientFactory
   use Reciperi.RecipeFactory
   use Reciperi.RecipeItemFactory
+  use Reciperi.OrderFactory
 end
