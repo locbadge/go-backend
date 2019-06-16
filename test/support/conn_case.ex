@@ -17,14 +17,14 @@ defmodule ReciperiWeb.ConnCase do
 
   using do
     quote do
+      import Reciperi.Factory
+
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       alias ReciperiWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint ReciperiWeb.Endpoint
-
-      import Reciperi.Factory
     end
   end
 

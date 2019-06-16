@@ -2,9 +2,11 @@ defmodule ReciperiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :reciperi
   use Absinthe.Phoenix.Endpoint
 
-  socket "/socket", ReciperiWeb.UserSocket,
+  socket(
+    "/socket", ReciperiWeb.UserSocket,
     websocket: true,
     longpoll: false
+  )
 
   # Serve at "/" the static files from "priv/static" directory.
   #

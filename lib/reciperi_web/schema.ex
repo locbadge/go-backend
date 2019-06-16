@@ -42,10 +42,6 @@ defmodule ReciperiWeb.Schema do
       config fn _args, _info ->
         {:ok, topic: "*"}
       end
-      resolve fn root, _, _ ->
-        IO.inspect(root)
-        {:ok, root}
-      end
     end
   end
 end

@@ -39,6 +39,14 @@ defmodule Reciperi.Resolvers.Ordering do
   def place_order(_, %{input: place_order_input}, _) do
     case Ordering.create_order(place_order_input) do
       {:ok, order} ->
+
+        # Subscription
+        Absinthe.Subscription.publish(
+          ReciperiWeb.Endpoint,
+          order,
+          new_order: "*"
+        )
+
         {:ok, %{order: order}}
       {:error, changeset} ->
         {:ok, %{errors: transform_errors(changeset)}}
