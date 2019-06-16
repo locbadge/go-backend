@@ -35,6 +35,7 @@ defmodule ReciperiWeb.Schema do
       arg :input, non_null(:place_order_input)
       resolve &Ordering.place_order/3
     end
+
     field :ready_order, :order_result do
       arg :id, non_null(:id)
       resolve &Ordering.ready_order/3
@@ -49,7 +50,15 @@ defmodule ReciperiWeb.Schema do
   subscription do
     field :new_order, :order do
       config fn _args, _info ->
-        {:ok, topic: "*"}
+        {:ok, topic: "new_order"}
+      end
+
+      trigger :place_order, topic: fn
+        _ -> "new_order"
+      end
+
+      resolve fn %{order: order}, _ , _ ->
+        {:ok, order}
       end
     end
 
