@@ -39,13 +39,32 @@ SET default_with_oids = false;
 
 CREATE TABLE public.orders (
     id bigint NOT NULL,
-    customer_number integer,
+    customer_number integer NOT NULL,
     ingredients jsonb,
-    ordered_at timestamp(0) without time zone,
-    state character varying(255),
+    ordered_at timestamp(0) without time zone DEFAULT now() NOT NULL,
+    state character varying(255) DEFAULT 'created'::character varying NOT NULL,
     inserted_at timestamp(0) without time zone NOT NULL,
     updated_at timestamp(0) without time zone NOT NULL
 );
+
+
+--
+-- Name: orders_customer_number_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.orders_customer_number_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: orders_customer_number_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.orders_customer_number_seq OWNED BY public.orders.customer_number;
 
 
 --
@@ -179,6 +198,13 @@ CREATE TABLE public.schema_migrations (
 --
 
 ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- Name: customer_number; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN customer_number SET DEFAULT nextval('public.orders_customer_number_seq'::regclass);
 
 
 --

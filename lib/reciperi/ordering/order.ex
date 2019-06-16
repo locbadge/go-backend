@@ -3,9 +3,10 @@ defmodule Reciperi.Ordering.Order do
   import Ecto.Changeset
 
   schema "orders" do
-    field :customer_number, :integer
-    field :ordered_at, :utc_datetime
-    field :state, :string
+    field :customer_number, :integer, read_after_writes: true
+    field :ordered_at, :utc_datetime, read_after_writes: true
+    field :state, :string, read_after_writes: true
+
     embeds_many :ingredients, Reciperi.Ordering.Ingredient
 
     timestamps()
@@ -13,10 +14,9 @@ defmodule Reciperi.Ordering.Order do
 
   @doc false
   def changeset(order, attrs) do
-    require IEx; IEx.pry
     order
     |> cast(attrs, [:customer_number, :ordered_at, :state])
     |> cast_embed(:ingredients)
-    |> validate_required([:customer_number, :ingredients, :ordered_at, :state])
+    |> validate_required([:customer_number, :ingredients])
   end
 end

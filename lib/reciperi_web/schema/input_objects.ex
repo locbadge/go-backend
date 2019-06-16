@@ -27,4 +27,14 @@ defmodule ReciperiWeb.Schema.InputObjects do
     field :description, :string
     field :price, non_null(:decimal)
   end
+
+  input_object :order_item_input do
+    field :ingredient_id, non_null(:id)
+    field :quantity, non_null(:integer)
+  end
+
+  input_object :place_order_input do
+    field :customer_number, :integer
+    field :ingredients, non_null(list_of(non_null(:order_item_input)))
+  end
 end

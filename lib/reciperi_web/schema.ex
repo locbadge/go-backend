@@ -3,6 +3,7 @@ defmodule ReciperiWeb.Schema do
   import_types ReciperiWeb.Schema.Objects
 
   alias Reciperi.Resolvers
+  alias Reciperi.Resolvers.Ordering
 
   query do
     @desc "A list of ingredients ."
@@ -28,6 +29,23 @@ defmodule ReciperiWeb.Schema do
     field :create_ingredient, :ingredient_result do
       arg :input, non_null(:ingredient_input)
       resolve &Resolvers.create_ingredient/3
+    end
+
+    field :place_order, :order_result do
+      arg :input, non_null(:place_order_input)
+      resolve &Ordering.place_order/3
+    end
+  end
+
+  subscription do
+    field :new_order, :order do
+      config fn _args, _info ->
+        {:ok, topic: "*"}
+      end
+      resolve fn root, _, _ ->
+        IO.inspect(root)
+        {:ok, root}
+      end
     end
   end
 end
