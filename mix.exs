@@ -47,7 +47,13 @@ defmodule Reciperi.MixProject do
       {:absinthe, "1.4.16"},
       {:absinthe_plug, "~> 1.4"},
       {:absinthe_phoenix, "~> 1.4.0"},
-      {:ex_machina, "~> 2.3", only: :test}
+      {:ex_machina, "~> 2.3", only: :test},
+      {
+        :comeonin_ecto_password,
+        git: "https://github.com/andresgutgon/comeonin_ecto_password",
+        branch: "fix/ecto-3-dependency"
+      },
+      {:pbkdf2_elixir, "~> 0.12"},
     ]
   end
 

@@ -44,7 +44,8 @@ CREATE TABLE public.orders (
     ordered_at timestamp(0) without time zone DEFAULT now() NOT NULL,
     state character varying(255) DEFAULT 'created'::character varying NOT NULL,
     inserted_at timestamp(0) without time zone NOT NULL,
-    updated_at timestamp(0) without time zone NOT NULL
+    updated_at timestamp(0) without time zone NOT NULL,
+    customer_id bigint
 );
 
 
@@ -195,6 +196,40 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    password character varying(255),
+    role character varying(255),
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
+);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -227,6 +262,13 @@ ALTER TABLE ONLY public.reciperi_recipe_items ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY public.reciperi_recipes ALTER COLUMN id SET DEFAULT nextval('public.reciperi_recipes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
@@ -270,6 +312,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: recipe_id_ingredient_id_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -298,6 +348,21 @@ CREATE INDEX reciperi_recipe_items_recipe_id_index ON public.reciperi_recipe_ite
 
 
 --
+-- Name: users_email_role_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX users_email_role_index ON public.users USING btree (email, role);
+
+
+--
+-- Name: orders_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES public.users(id);
+
+
+--
 -- Name: reciperi_recipe_items_ingredient_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -317,5 +382,5 @@ ALTER TABLE ONLY public.reciperi_recipe_items
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805), (20190610153039), (20190623102234);
+INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805), (20190610153039), (20190623102234), (20190623113747), (20190623124355);
 
