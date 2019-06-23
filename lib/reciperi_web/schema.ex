@@ -2,8 +2,19 @@ defmodule ReciperiWeb.Schema do
   use Absinthe.Schema
   import_types ReciperiWeb.Schema.Objects
 
+  alias ReciperiWeb.Schema.Middleware
   alias Reciperi.Resolvers
   alias Reciperi.Resolvers.Ordering
+
+  # Pattern match only for mutations
+  # Adding error handling middleware
+  def middleware(middleware, _field, %{identifier: :mutation}) do
+    middleware ++ [Middleware.ChangesetErrors]
+  end
+
+  def middleware(middleware, _field, _object) do
+    middleware
+  end
 
   query do
     @desc "A list of ingredients ."
