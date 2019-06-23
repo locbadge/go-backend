@@ -19,7 +19,6 @@ defmodule Reciperi.Resolvers do
     case context do
       %{current_user: %{role: "employee"}} ->
         with {:ok, ingredient} <- IngredientConnection.create(params) do
-          require IEx; IEx.pry
           {:ok, ingredient}
         end
       _->

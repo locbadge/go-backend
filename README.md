@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 139 Securing with Authentication and Authorization
+- [ ] Book page: 156 Authorization Middleware
 
 ### Debug
 To setup a debugger do this in the code you want to debug:

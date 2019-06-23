@@ -21,7 +21,6 @@ defmodule ReciperiWeb.Schema.Mutation.LoginTest do
       query: @query,
       variables: %{"email" => user.email}
     )
-    require IEx; IEx.pry
     assert %{"data" => %{
       "login" => %{
         "token" => token,

@@ -1,10 +1,6 @@
 defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
   use ReciperiWeb.ConnCase, async: true
 
-  def setup do
-    [conn: build_conn()]
-  end
-
   @query """
   mutation ($ingredient: IngredientInput!) {
     createIngredient(input: $ingredient) {
@@ -24,8 +20,7 @@ defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
   }}
   test "createIngredient field creates an ingredient", context do
     variables = @variables
-    user = insert(:user)
-    conn = context[:conn] |> auth_user(user)
+    conn = context[:conn] |> auth_conn
     response = post(conn, "/graphql", query: @query, variables: variables)
     data = %{
       "data" => %{
@@ -43,11 +38,28 @@ defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
   end
 
   @variables %{ingredient: %{"name" => "Onion", "price" => "1.30"}}
+  test "must be authorized as an employee to create an ingredient", context do
+    customer = insert(:user, role: "customer")
+    conn = context[:conn] |> auth_conn(customer)
+    response = post(conn, "/graphql", query: @query, variables: @variables)
+    data = %{
+      "data" => %{ "createIngredient" => nil},
+      "errors" => [
+        %{
+          "locations" => [%{"column" => 0, "line" => 2}],
+          "message" => "unauthorized",
+          "path" => ["createIngredient"]
+        }
+      ]
+    }
+    assert json_response(response, 200) == data
+  end
+
+  @variables %{ingredient: %{"name" => "Onion", "price" => "1.30"}}
   test "createIngredient with existing field fails", context do
     variables = @variables
     insert(:ingredient, name: "Onion")
-    user = insert(:user)
-    conn = context[:conn] |> auth_user(user)
+    conn = context[:conn] |> auth_conn
     response = post(conn, "/graphql", query: @query, variables: variables)
     assert json_response(response, 200) == %{
       "data" => %{
@@ -59,10 +71,5 @@ defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
         }
       }
     }
-  end
-
-  defp auth_user(conn, user) do
-    token = ReciperiWeb.Authentication.sign(%{role: user.role, id: user.id})
-    put_req_header(conn, "authorization", "Bearer #{token}")
   end
 end

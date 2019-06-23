@@ -25,6 +25,13 @@ defmodule ReciperiWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint ReciperiWeb.Endpoint
+
+      # Helper method to add auhorization header
+      # to a connection
+      def auth_conn(conn, user \\ insert(:user)) do
+        token = ReciperiWeb.Authentication.sign(%{role: user.role, id: user.id})
+        put_req_header(conn, "authorization", "Bearer #{token}")
+      end
     end
   end
 
