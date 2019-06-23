@@ -2,6 +2,16 @@ defmodule Reciperi.Seeds do
   def run() do
     alias Reciperi.{Repo}
     alias Reciperi.Schemas.{Ingredient}
+    alias Reciperi.Accounts.{User}
+
+    %User{}
+      |> User.changeset(%{
+        name: "Hellen",
+        email: "hellen@reciperi.com",
+        password: "super-secret",
+        role: "employee"
+      })
+      |> Repo.insert!
 
     %Ingredient{
       name: "Pepper",

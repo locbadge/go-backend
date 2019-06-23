@@ -50,6 +50,33 @@ defmodule ReciperiWeb.Schema.Objects do
     field :errors, list_of(:result_error)
   end
 
+  interface :user do
+    field :email, :string
+    field :name, :string
+    resolve_type fn
+      %{role: "employee"}, _ -> :employee
+      %{role: "customer"}, _ -> :customer
+    end
+  end
+
+  object :employee do
+    interface :user
+    field :email, :string
+    field :name, :string
+  end
+
+  object :customer do
+    interface :user
+    field :email, :string
+    field :name, :string
+    field :orders, list_of(:order)
+  end
+
+  object :session do
+    field :token, :string
+    field :user, :user
+  end
+
   @desc "These are the relation between a recipe and an ingredient"
   object :recipe_item do
     field :id, :id

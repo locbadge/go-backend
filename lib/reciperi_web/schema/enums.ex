@@ -11,4 +11,9 @@ defmodule ReciperiWeb.Schema.Enums do
     value :asc
     value :desc
   end
+
+  enum :role do
+    value :employee
+    value :customer
+  end
 end
