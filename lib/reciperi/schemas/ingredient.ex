@@ -10,6 +10,7 @@ defmodule Reciperi.Schemas.Ingredient  do
     field :name, :string
     field :description, :string
     field :price, :decimal
+    field :allergy_info, {:array, :map}
     has_many(:recipes, RecipeItem)
 
     field :inserted_at, :utc_datetime

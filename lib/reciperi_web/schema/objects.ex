@@ -30,6 +30,11 @@ defmodule ReciperiWeb.Schema.Objects do
     field :errors, list_of(:result_error)
   end
 
+  object :allergy_info do
+    field :allergen, :string
+    field :severity, :string
+  end
+
   @desc "Igredient definition"
   object :ingredient do
     interfaces [:search_result]
@@ -37,6 +42,7 @@ defmodule ReciperiWeb.Schema.Objects do
     field :name, :string
     field :description, :string
     field :price, :decimal
+    field :allergy_info, list_of(:allergy_info)
   end
 
   object :ingredient_result do

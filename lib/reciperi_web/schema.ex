@@ -6,6 +6,12 @@ defmodule ReciperiWeb.Schema do
   alias Reciperi.Resolvers
   alias Reciperi.Resolvers.Ordering
 
+  def middleware(middleware, field, %{identifier: :allergy_info} = object) do
+    new_middleware = {Absinthe.Middleware.MapGet, to_string(field.identifier)}
+    middleware
+    |> Absinthe.Schema.replace_default(new_middleware, field, object)
+  end
+
   # Pattern match only for mutations
   # Adding error handling middleware
   def middleware(middleware, _field, %{identifier: :mutation}) do

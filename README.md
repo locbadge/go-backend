@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 121 Authentication: Pubish your API
+- [ ] Book page: 139 Securing with Authentication and Authorization
 
 ### Debug
 To setup a debugger do this in the code you want to debug:

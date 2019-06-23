@@ -96,7 +96,8 @@ CREATE TABLE public.reciperi_ingredients (
     inserted_at timestamp(0) without time zone DEFAULT now() NOT NULL,
     updated_at timestamp(0) without time zone DEFAULT now() NOT NULL,
     description text,
-    price numeric
+    price numeric,
+    allergy_info jsonb
 );
 
 
@@ -316,5 +317,5 @@ ALTER TABLE ONLY public.reciperi_recipe_items
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805), (20190610153039);
+INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805), (20190610153039), (20190623102234);
 
