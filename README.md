@@ -1,5 +1,14 @@
 ### TODO
 - [ ] Book page: 156 Authorization Middleware
+- [ ] Add [nginx support for websockets](https://www.nginx.com/blog/websocket-nginx/)
+
+
+### Nginx support Websockets
+```
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "Upgrade";
+```
 
 ### Debug
 To setup a debugger do this in the code you want to debug:
