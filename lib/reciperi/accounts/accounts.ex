@@ -10,6 +10,10 @@ defmodule Reciperi.Accounts do
 
   alias Reciperi.Accounts.User
 
+  def lookup(role, id) do
+    Repo.get_by(User, role: to_string(role), id: id)
+  end
+
   def authenticate(role, email, password) do
     user = Repo.get_by(User, role: to_string(role), email: email)
 

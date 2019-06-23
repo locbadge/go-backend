@@ -15,7 +15,7 @@ defmodule Reciperi.Resolvers.IngredientConnection do
     {:ok, Repo.all(query)}
   end
 
-  def create(_, %{input: params}, _) do
+  def create(params) do
     with {:ok, ingredient} <- Ingredients.Mutation.create(params) do
       {:ok, %{ingredient: ingredient}}
     end

@@ -1,6 +1,5 @@
 defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
   use ReciperiWeb.ConnCase, async: true
-  import Ecto.Query
 
   def setup do
     [conn: build_conn()]
@@ -25,9 +24,9 @@ defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
   }}
   test "createIngredient field creates an ingredient", context do
     variables = @variables
-    response = post(
-      context[:conn], "/graphql", query: @query, variables: variables
-    )
+    user = insert(:user)
+    conn = context[:conn] |> auth_user(user)
+    response = post(conn, "/graphql", query: @query, variables: variables)
     data = %{
       "data" => %{
         "createIngredient" => %{
@@ -47,9 +46,9 @@ defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
   test "createIngredient with existing field fails", context do
     variables = @variables
     insert(:ingredient, name: "Onion")
-    response = post(
-      context[:conn], "/graphql", query: @query, variables: variables
-    )
+    user = insert(:user)
+    conn = context[:conn] |> auth_user(user)
+    response = post(conn, "/graphql", query: @query, variables: variables)
     assert json_response(response, 200) == %{
       "data" => %{
         "createIngredient" => %{
@@ -60,5 +59,10 @@ defmodule ReciperiWeb.Schema.Mutation.CreateIngredientTest do
         }
       }
     }
+  end
+
+  defp auth_user(conn, user) do
+    token = ReciperiWeb.Authentication.sign(%{role: user.role, id: user.id})
+    put_req_header(conn, "authorization", "Bearer #{token}")
   end
 end

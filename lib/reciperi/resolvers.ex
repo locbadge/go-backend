@@ -15,8 +15,16 @@ defmodule Reciperi.Resolvers do
     IngredientConnection.get(parent, args, info)
   end
 
-  def create_ingredient(parent, args, info) do
-    IngredientConnection.create(parent, args, info)
+  def create_ingredient(_, %{input: params}, %{context: context}) do
+    case context do
+      %{current_user: %{role: "employee"}} ->
+        with {:ok, ingredient} <- IngredientConnection.create(params) do
+          require IEx; IEx.pry
+          {:ok, ingredient}
+        end
+      _->
+        {:error, "unauthorized"}
+    end
   end
 
   def recipes(parent, args, info) do
