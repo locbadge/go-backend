@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 156 Authorization Middleware
+- [ ] Book page: 176 Tuning resolution, Using Built-in Plugins
 - [ ] Add [nginx support for websockets](https://www.nginx.com/blog/websocket-nginx/)
 
 
