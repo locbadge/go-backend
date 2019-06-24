@@ -13,6 +13,16 @@ defmodule Reciperi.Seeds do
       })
       |> Repo.insert!
 
+    %User{}
+      |> User.changeset(%{
+        name: "Bob",
+        email: "bob@gmail.com",
+        password: "super-secret",
+        role: "customer"
+      })
+      |> Repo.insert!
+
+
     %Ingredient{
       name: "Pepper",
       description: "Something here",

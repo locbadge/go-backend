@@ -69,7 +69,18 @@ defmodule ReciperiWeb.Schema.Objects do
     interface :user
     field :email, :string
     field :name, :string
-    field :orders, list_of(:order)
+    field :orders, list_of(:order) do
+      resolve fn customer, _, _ ->
+        import Ecto.Query
+
+        orders =
+          Reciperi.Ordering.Order
+          |> where(customer_id: ^customer.id)
+          |> Reciperi.Repo.all
+
+        {:ok, orders}
+      end
+    end
   end
 
   object :session do

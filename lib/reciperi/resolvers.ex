@@ -15,14 +15,9 @@ defmodule Reciperi.Resolvers do
     IngredientConnection.get(parent, args, info)
   end
 
-  def create_ingredient(_, %{input: params}, %{context: context}) do
-    case context do
-      %{current_user: %{role: "employee"}} ->
-        with {:ok, ingredient} <- IngredientConnection.create(params) do
-          {:ok, ingredient}
-        end
-      _->
-        {:error, "unauthorized"}
+  def create_ingredient(_, %{input: params}, _) do
+    with {:ok, ingredient} <- IngredientConnection.create(params) do
+      {:ok, ingredient}
     end
   end
 

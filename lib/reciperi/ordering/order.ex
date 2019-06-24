@@ -4,6 +4,7 @@ defmodule Reciperi.Ordering.Order do
 
   schema "orders" do
     field :customer_number, :integer, read_after_writes: true
+    field :customer_id, :integer
     field :ordered_at, :utc_datetime, read_after_writes: true
     field :state, :string, read_after_writes: true
 
@@ -15,8 +16,8 @@ defmodule Reciperi.Ordering.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [:customer_number, :ordered_at, :state])
+    |> cast(attrs, [:customer_id, :customer_number, :ordered_at, :state])
     |> cast_embed(:ingredients)
-    |> validate_required([:customer_number, :ingredients])
+    |> validate_required([:ingredients])
   end
 end
