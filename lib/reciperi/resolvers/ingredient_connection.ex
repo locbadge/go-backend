@@ -21,6 +21,16 @@ defmodule Reciperi.Resolvers.IngredientConnection do
     end
   end
 
+  def ingredients_for_category(category, _, _) do
+    query = Ecto.assoc(category, :items)
+    {:ok, Reciperi.Repo.all(query)}
+  end
+
+  def category_for_ingredient(ingredient, _, _) do
+    query = Ecto.assoc(ingredient, :category)
+    {:ok, Reciperi.Repo.one(query)}
+  end
+
   defp build_base_query(_parent) do
     Ingredients.Query.base_query()
   end

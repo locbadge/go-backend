@@ -2,6 +2,7 @@ defmodule ReciperiWeb.Schema.Objects do
   use Absinthe.Schema.Notation
 
   alias Reciperi.Resolvers
+  alias Reciperi.Resolvers.IngredientConnection
   import_types ReciperiWeb.Schema.Enums
   import_types ReciperiWeb.Schema.Scalars
   import_types ReciperiWeb.Schema.InputObjects
@@ -43,6 +44,18 @@ defmodule ReciperiWeb.Schema.Objects do
     field :description, :string
     field :price, :decimal
     field :allergy_info, list_of(:allergy_info)
+    field :category, :category do
+      resolve &IngredientConnection.category_for_ingredient/3
+    end
+  end
+
+  object :category do
+    interfaces [:search_result]
+    field :name, :string
+    field :description, :string
+    field :ingredients, list_of(:ingredient) do
+      resolve &IngredientConnection.ingredients_for_category/3
+    end
   end
 
   object :ingredient_result do

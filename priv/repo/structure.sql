@@ -34,6 +34,38 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.categories (
+    id bigint NOT NULL,
+    description character varying(255),
+    name character varying(255) NOT NULL,
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
+);
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
 -- Name: orders; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -98,7 +130,8 @@ CREATE TABLE public.reciperi_ingredients (
     updated_at timestamp(0) without time zone DEFAULT now() NOT NULL,
     description text,
     price numeric,
-    allergy_info jsonb
+    allergy_info jsonb,
+    category_id bigint
 );
 
 
@@ -233,6 +266,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
 
 
@@ -269,6 +309,14 @@ ALTER TABLE ONLY public.reciperi_recipes ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
 
 
 --
@@ -363,6 +411,14 @@ ALTER TABLE ONLY public.orders
 
 
 --
+-- Name: reciperi_ingredients_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reciperi_ingredients
+    ADD CONSTRAINT reciperi_ingredients_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id);
+
+
+--
 -- Name: reciperi_recipe_items_ingredient_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -382,5 +438,5 @@ ALTER TABLE ONLY public.reciperi_recipe_items
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805), (20190610153039), (20190623102234), (20190623113747), (20190623124355);
+INSERT INTO public."schema_migrations" (version) VALUES (20190224113401), (20190414083920), (20190414085137), (20190610102919), (20190610123805), (20190610153039), (20190623102234), (20190623113747), (20190623124355), (20190624154907), (20190624155049);
 

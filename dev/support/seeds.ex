@@ -1,7 +1,7 @@
 defmodule Reciperi.Seeds do
   def run() do
     alias Reciperi.{Repo}
-    alias Reciperi.Schemas.{Ingredient}
+    alias Reciperi.Schemas.{Ingredient, Category}
     alias Reciperi.Accounts.{User}
 
     %User{}
@@ -23,10 +23,15 @@ defmodule Reciperi.Seeds do
       |> Repo.insert!
 
 
+    category = %Category{
+      name: "Hortalizas",
+      description: "Something here",
+    } |> Repo.insert!
     %Ingredient{
       name: "Pepper",
       description: "Something here",
       price: 3.50,
+      category_id: category.id,
       allergy_info: [
         %{"allergen" => "Alergy1", "severity" => "Contains"},
         %{"allergen" => "Alergy2", "severity" => "Shared Equipment"},
