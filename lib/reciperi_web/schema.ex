@@ -4,8 +4,22 @@ defmodule ReciperiWeb.Schema do
   import_types ReciperiWeb.Schema.Objects
 
   alias ReciperiWeb.Schema.Middleware
+  alias Reciperi.Resolvers.IngredientConnection
   alias Reciperi.Resolvers
   alias Reciperi.Resolvers.Ordering
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader | Absinthe.Plugin.defaults]
+  end
+
+  def dataloader() do
+    Dataloader.new
+    |> Dataloader.add_source(IngredientConnection, IngredientConnection.data())
+  end
+
+  def context(ctx) do
+    Map.put(ctx, :loader, dataloader())
+  end
 
   def middleware(middleware, field, object) do
     middleware

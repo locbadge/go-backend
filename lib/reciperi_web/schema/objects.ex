@@ -8,6 +8,9 @@ defmodule ReciperiWeb.Schema.Objects do
   import_types ReciperiWeb.Schema.InputObjects
   import_types ReciperiWeb.Schema.Fragments
 
+  # Dataloader helpers
+  import Absinthe.Resolution.Helpers
+
   @desc "An error encountered trying to persist input"
   object :result_error do
     field :key, non_null(:string)
@@ -54,7 +57,8 @@ defmodule ReciperiWeb.Schema.Objects do
     field :name, :string
     field :description, :string
     field :ingredients, list_of(:ingredient) do
-      resolve &IngredientConnection.ingredients_for_category/3
+      arg :filter, :ingredient_filter
+      resolve dataloader(IngredientConnection, :ingredients)
     end
   end
 
