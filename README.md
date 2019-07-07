@@ -1,5 +1,5 @@
 ### TODO
-- [ ] Book page: 220: Integrating with a frontend
+- [x] Book page: 220: Integrating with a frontend
 - [ ] Add [nginx support for websockets](https://www.nginx.com/blog/websocket-nginx/)
 
 
@@ -7,7 +7,7 @@
 ```
 proxy_http_version 1.1;
 proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection "Upgrade";
+proxy_set_header Connection "UpMenuItemsgrade";
 ```
 # Resolution strategies
 In a GraphQL document how we can avoid N+1 queries?

@@ -49,6 +49,7 @@ defmodule Reciperi.MixProject do
       {:absinthe_phoenix, "~> 1.4.0"},
       {:ex_machina, "~> 2.3", only: :test},
       {:dataloader, "~> 1.0.0"},
+      {:cors_plug, "~> 1.5"},
       {
         :comeonin_ecto_password,
         git: "https://github.com/andresgutgon/comeonin_ecto_password",

@@ -136,5 +136,11 @@ defmodule ReciperiWeb.Schema do
         {:ok, order}
       end
     end
+
+    field :new_ingredient, :ingredient do
+      config fn _args, _info ->
+        {:ok, topic: "*"}
+      end
+    end
   end
 end
